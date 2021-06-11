@@ -3,6 +3,12 @@ const ips = {
 	whitelist: [],
 	history: []
 };
+const countries = {
+	blacklist: [],
+	whitelist: [],
+	history: []
+};
+country
 const intervals = {
 	active: [],
 	all: []
@@ -19,6 +25,7 @@ async function main(ip) {
 	if(!check_ip(ip)) {return;}
 	dom.update_stats();
 	const info = await fetch_api(ip);
+	if(!check_country(info.country)) {return;}
 	dom.obs();
 	dom.new_connection(info);
 	time.connection_time(ip);
@@ -42,6 +49,19 @@ function check_ip(ip) {
 	}
 
 	ips.history.push(ip);
+	return true;
+}
+
+function check_country(country) {
+	const checkBox = $("countrybanhistory").checked;
+	if (checkbox && countries.blacklist.some(countries => countries == country)) {
+		banskip++;
+		dclick.discconect();
+		console.log("Skip reason: Banned country");
+		return false;
+	}
+
+	countries.history.push(country);
 	return true;
 }
 
@@ -220,6 +240,23 @@ const list = {
 	},
 	whitelist_this: function () {
 		ips.whitelist.push(ips.history[ips.history.length - 1]);
+	},
+	country_blacklist: function () {
+		const x = $("texbox_country");
+		countries.blacklist.push(x.value);
+		x.value = "";
+	},
+	country_blacklist_this: function() {
+		countries.blacklist.push(countries.history[countries.history.length - 1]);
+		dclick.discconect();
+	},
+	country_whitelist: function () {
+		const x = $("texbox_country");
+		countries.whitelist.push(x.value);
+		x.value = "";
+	},
+	country_whitelist_this: function () {
+		countries.whitelist.push(countries.history[countries.history.length - 1]);
 	}
 };
 
