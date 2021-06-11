@@ -131,73 +131,83 @@ async function fetch_api(ip) {
 }
 
 const time = {
-	peers_time: function (newtime, ip) {
-		const timeobj = {
-			hours: 0,
-			minutes: 0,
-			seconds: 0,
-			update() {
-				timeobj.seconds++;
-				if (timeobj.seconds >= 60) {timeobj.minutes++; timeobj.seconds = 0;}
-				if (timeobj.minutes >= 60) {timeobj.hours++; timeobj.minutes = 0;}
-				if (timeobj.hours >= 24) {timeobj.hours = 0;}
-			},
-			pad(number, width = 2, character = '0') {
-				number = number + '';
-				return number.length >= width ? number : new Array(width - number.length + 1).join(character) + number;
-			},
-			updatediv() {
-				timeobj.update();
-				const timediv = $(`time${ip}`);
-				if (timediv == null) {clearInterval(ainterval); return;}
-				timediv.innerText = `Time: ${timeobj.pad(timeobj.hours)}:${timeobj.pad(timeobj.minutes)}:${timeobj.pad(timeobj.seconds)}`;
-			}
-		};
-		if (newtime == "00:00:00") {return;}
-		newtime = newtime.split(":");
-		timeobj.hours = newtime[0];
-		timeobj.minutes = newtime[1];
-		timeobj.seconds = newtime[2];
-		ainterval = interval.new(timeobj.updatediv, 1000);
-	},
-	connection_time: function (ip) {
-		const timeobj = {
-			hours: 0,
-			minutes: 0,
-			seconds: 0,
-			update() {
-				timeobj.seconds++;
-				if (timeobj.seconds >= 60) {timeobj.minutes++; timeobj.seconds = 0;}
-				if (timeobj.minutes >= 60) {timeobj.hours++; timeobj.minutes = 0;}
-				if (timeobj.hours >= 24) {timeobj.hours = 0;}
-			},
-			pad(number, width = 2, character = '0') {
-				number = number + '';
-				return number.length >= width ? number : new Array(width - number.length + 1).join(character) + number;
-			},
-			updatediv() {
-				timeobj.update();
-				const timediv = $(`ctime${ip}`);
-				if (timediv == null) {clearInterval(cinterval);return;}
-				timediv.innerText = `Connection: ${timeobj.pad(timeobj.hours)}:${timeobj.pad(timeobj.minutes)}:${timeobj.pad(timeobj.seconds)}`;
-			}
-		};
-		cinterval = interval.new(timeobj.updatediv, 1000);
-	},
-	api: async function (time_ip, ip) {
-		return fetch(`${time_ip}${ip}`).then(async response =>
-			{
-				response = await response.json()
-				response.utc_offset = "UTC " + response.utc_offset;
-				return response;
-			}).catch(error =>
-			{
-				return {
-					datetime: "00:00:00",
-					utc_offset: "error"
-				}
-			});
-	}
+    peers_time: function (time, ip) {
+        const timeobj = {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            update() {
+                timeobj.seconds++;
+                if (timeobj.seconds >= 60) {
+                    timeobj.minutes++;
+                    timeobj.seconds = 0;
+                }
+                if (timeobj.minutes >= 60) {
+                    timeobj.hours++;
+                    timeobj.minutes = 0;
+                }
+                if (timeobj.hours >= 24) {
+                    timeobj.hours = 0;
+                }
+            },
+            pad(number, width = 2, character = '0') {
+                let snumber = number + '';
+                return snumber.length >= width ? snumber : new Array(width - snumber.length + 1).join(character) + snumber;
+            },
+            updatediv() {
+                timeobj.update();
+                const timediv = document.getElementById(`time${ip}`);
+                if (timediv == null) {
+                    clearInterval(intervals.atime);
+                    return;
+                }
+                timediv.innerText = `Time: ${timeobj.pad(timeobj.hours)}:${timeobj.pad(timeobj.minutes)}:${timeobj.pad(timeobj.seconds)}`;
+            }
+        };
+        if (time == "00:00:00") {
+            return;
+        }
+        const newtime = time.split(":");
+        timeobj.hours = parseInt(newtime[0]);
+        timeobj.minutes = parseInt(newtime[1]);
+        timeobj.seconds = parseInt(newtime[2]);
+        intervals.atime = interval.new(timeobj.updatediv, 1000);
+    },
+    connection_time: function (ip) {
+        const timeobj = {
+            hours: 0,
+            minutes: 0,
+            seconds: 0,
+            update() {
+                timeobj.seconds++;
+                if (timeobj.seconds >= 60) {
+                    timeobj.minutes++;
+                    timeobj.seconds = 0;
+                }
+                if (timeobj.minutes >= 60) {
+                    timeobj.hours++;
+                    timeobj.minutes = 0;
+                }
+                if (timeobj.hours >= 24) {
+                    timeobj.hours = 0;
+                }
+            },
+            pad(number, width = 2, character = '0') {
+                let snumber = number + '';
+                return snumber.length >= width ? snumber : new Array(width - snumber.length + 1).join(character) + snumber;
+            },
+            updatediv() {
+                timeobj.update();
+                const timediv = document.getElementById(`ctime${ip}`);
+                if (timediv == null) {
+                    clearInterval(intervals.ctime);
+                    return;
+                }
+                timediv.innerText = `Connection: ${timeobj.pad(timeobj.hours)}:${timeobj.pad(timeobj.minutes)}:${timeobj.pad(timeobj.seconds)}`;
+            }
+        };
+        intervals.ctime = interval.new(timeobj.updatediv, 1000);
+    }
 };
 
 const dclick = {
