@@ -7,16 +7,11 @@ function init_chat() {
 	ISP: Fetching <br/>
 	<div id="time">Time: Fetching </div>
 	Timezone: Fetching <br/>
-	<label for="cars">Choose a car:</label>
-	<select id="cars" name="cars" size="4" multiple>
-	  <option value="volvo">Volvo</option>
-	  <option value="saab">Saab</option>
-	  <option value="fiat">Fiat</option>
-	  <option value="audi">Audi</option>
-	</select>
 	<div id="ctime">Connection: 00:00:00</div>
 	<button type="button" onclick="list.blacklist_this()">Blacklist this IP</button>
 	<button type="button" onclick="list.whitelist_this()">Whitelist this IP</button> <br/>
+	<button type="button" onclick="list.country_blacklist_this()">Blacklist this Country</button>
+	<button type="button" onclick="list.country_whitelist_this()">Whitelist this Country</button> <br/>
 	<button type="button" onclick="dclick.new_connection()">New Connection</button>
 	<button type="button" onclick="dclick.discconect()">Skip</button>
 	<button type="button" onclick="dclick.reroll_skip()">Skip and stop reroll</button> <br/>
