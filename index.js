@@ -51,7 +51,7 @@ function check_ip(ip) {
 }
 
 function check_country(country) {
-	if (location_data.country == "India") {
+	if (country == "India") {
 	const btn = document.getElementsByClassName("disconnectbtn")[0];
 	switch (btn.innerText.split("\n")[0]) {
 		case "Stop":
