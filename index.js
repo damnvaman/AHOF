@@ -8,7 +8,6 @@ const countries = {
 	whitelist: [],
 	history: []
 };
-country
 const intervals = {
 	active: [],
 	all: []
