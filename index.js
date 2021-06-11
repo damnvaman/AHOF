@@ -323,8 +323,10 @@ const dom = {
 		<div id="time${info.ip}">Time: ${info.time}</div>
 		Timezone: ${info.timezone} <br/>
 		<div id="ctime${info.ip}">Connection: 00:00:00</div>
-		<button type="button" onclick="list.blacklist_this()">Blacklist this IP</button> 
+		<button type="button" onclick="list.blacklist_this()">Blacklist this IP</button>
 		<button type="button" onclick="list.whitelist_this()">Whitelist this IP</button> <br/>
+		<button type="button" onclick="list.country_blacklist_this()">Blacklist this Country</button>
+		<button type="button" onclick="list.country_whitelist_this()">Whitelist this Country</button> <br/>
 		<button type="button" onclick="dclick.new_connection()">New Connection</button>
 		<button type="button" onclick="dclick.discconect()">Skip</button>
 		<button type="button" onclick="dclick.reroll_skip()">Skip and stop reroll</button> <br/>
