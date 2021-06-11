@@ -25,7 +25,6 @@ async function main(ip) {
 	if(!check_ip(ip)) {return;}
 	dom.update_stats();
 	const info = await fetch_api(ip);
-	if(!check_country(info.country)) {return;}
 	dom.obs();
 	dom.new_connection(info);
 	time.connection_time(ip);
@@ -53,16 +52,40 @@ function check_ip(ip) {
 }
 
 function check_country(country) {
-	const checkBox = $("countrybanhistory").checked;
-	if (checkbox && countries.blacklist.some(countries => countries == country)) {
-		banskip++;
-		dclick.discconect();
-		console.log("Skip reason: Banned country");
-		return false;
-	}
+	if (location_data.country == "India") {
+	const btn = document.getElementsByClassName("disconnectbtn")[0];
+	switch (btn.innerText.split("\n")[0]) {
+		case "Stop":
+			btn.click();
+			btn.click();
+			btn.click();
+		break;
 
-	countries.history.push(country);
-	return true;
+		case "Really?":
+			btn.click();
+			btn.click();
+		break;
+
+		case "New":
+			btn.click();
+			btn.click();
+		default:
+			btn.click();
+		break;
+	}
+	const btnNewChat = document.getElementsByClassName("newchatbtnwrapper")[0];
+	btnNewChat.click();
+}
+// 	const checkBox = $("countrybanhistory").checked;
+// 	if (checkbox && countries.blacklist.some(countries => countries == country)) {
+// 		banskip++;
+// 		dclick.discconect();
+// 		console.log("Skip reason: Banned country");
+// 		return false;
+// 	}
+
+// 	countries.history.push(country);
+// 	return true;
 }
 
 async function fetch_api(ip) {
@@ -80,30 +103,31 @@ async function fetch_api(ip) {
 		timezone: time_data.utc_offset,
 		timezone_short: time_data.abbreviation
 	};
-		if (location_data.country == "India") {
-			const btn = document.getElementsByClassName("disconnectbtn")[0];
-			switch (btn.innerText.split("\n")[0]) {
-				case "Stop":
-					btn.click();
-					btn.click();
-					btn.click();
-				break;
+	check_country(location_data.country)
+// 		if (location_data.country == "India") {
+// 			const btn = document.getElementsByClassName("disconnectbtn")[0];
+// 			switch (btn.innerText.split("\n")[0]) {
+// 				case "Stop":
+// 					btn.click();
+// 					btn.click();
+// 					btn.click();
+// 				break;
 		
-				case "Really?":
-					btn.click();
-					btn.click();
-				break;
+// 				case "Really?":
+// 					btn.click();
+// 					btn.click();
+// 				break;
 				
-				case "New":
-					btn.click();
-					btn.click();
-				default:
-					btn.click();
-				break;
-			}
-			const btnNewChat = document.getElementsByClassName("newchatbtnwrapper")[0];
-			btnNewChat.click()
-	}
+// 				case "New":
+// 					btn.click();
+// 					btn.click();
+// 				default:
+// 					btn.click();
+// 				break;
+// 			}
+// 			const btnNewChat = document.getElementsByClassName("newchatbtnwrapper")[0];
+// 			btnNewChat.click();
+// 		}
 	return data;
 }
 
