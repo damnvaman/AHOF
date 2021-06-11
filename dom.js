@@ -30,14 +30,13 @@ const newItem = document.createElement("div");
 newItem.innerHTML = /* html */`
 	<div style="width: 400px;height: 20px;margin: auto;-right: auto;"> 
 		<input id="texbox_country"> 
-		<button type="button" onclick="list.countryblacklist()">Blacklist</button>
-		<button type="button" onclick="list.countrywhitelist()">Whitelist</button>
+		<button type="button" onclick="list.country_blacklist()">Blacklist</button>
+		<button type="button" onclick="list.country_whitelist()">Whitelist</button>
 	</div>
-	<div style="width: 400px;height: 20px;margin: auto;"> 
-		<input id="texbox_ip"> 
-		<button type="button" onclick="list.blacklist()">Blacklist</button>
-		<button type="button" onclick="list.whitelist()">Whitelist</button>
-	</div><div style="width: 300px;position: fixed;height: 20px;top: 10px;left: 300px;"> 
+	
+
+	
+	<div style="width: 300px;position: fixed;height: 20px;top: 10px;left: 300px;"> 
 		<style>
 			.switch {position: relative; display: inline-block; width: 30px; height: 17px; }
 			.switch input {opacity: 0; width: 0; height: 0; }
@@ -57,6 +56,13 @@ newItem.innerHTML = /* html */`
 		<div style="position: absolute; margin-left: 38px;">Enable Country Filter</div>
 		
 	</div>
+	
+	<div style="width: 400px;height: 20px;margin: auto;"> 
+		<input id="texbox_ip"> 
+		<button type="button" onclick="list.blacklist()">Blacklist</button>
+		<button type="button" onclick="list.whitelist()">Whitelist</button>
+	</div>	
+	
 	<div style="width: 300px;position: fixed;height: 20px;top: 30px;left: 300px;"> 
 		<style>
 			.switch {position: relative; display: inline-block; width: 30px; height: 17px; }
