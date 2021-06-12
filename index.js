@@ -51,26 +51,28 @@ function check_ip(ip) {
 }
 
 function check_country(country) {
-	if (country == "India") {
+	if (country === "India") {
 	const btn = document.getElementsByClassName("disconnectbtn")[0];
 	switch (btn.innerText.split("\n")[0]) {
 		case "Stop":
 			btn.click();
 			btn.click();
 			btn.click();
-		break;
+			break;
 
 		case "Really?":
 			btn.click();
 			btn.click();
-		break;
+			break;
 
 		case "New":
 			btn.click();
 			btn.click();
+			break;
+			
 		default:
 			btn.click();
-		break;
+			break;
 	}
 	const btnNewChat = document.getElementsByClassName("newchatbtnwrapper")[0];
 	btnNewChat.click();
@@ -102,7 +104,7 @@ async function fetch_api(ip) {
 		timezone: time_data.utc_offset,
 		timezone_short: time_data.abbreviation
 	};
-	check_country(location_data.country)
+	check_country(data.country)
 // 		if (location_data.country == "India") {
 // 			const btn = document.getElementsByClassName("disconnectbtn")[0];
 // 			switch (btn.innerText.split("\n")[0]) {
@@ -164,7 +166,7 @@ const time = {
                 timediv.innerText = `Time: ${timeobj.pad(timeobj.hours)}:${timeobj.pad(timeobj.minutes)}:${timeobj.pad(timeobj.seconds)}`;
             }
         };
-        if (time == "00:00:00") {
+        if (time === "00:00:00") {
             return;
         }
         const newtime = time.split(":");
